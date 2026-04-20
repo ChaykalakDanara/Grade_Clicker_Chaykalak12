@@ -1,6 +1,7 @@
 package com.chaykalak.gradeclicker
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -31,14 +32,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.chaykalak.gradeclicker.data.Datasource
+private  const val TAG = "MainActivity"
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate Called")
         enableEdgeToEdge()
         setContent {
             Grade_ClickerTheme {
@@ -50,12 +54,40 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "onStart Called")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume Called")
+    }
+    override fun onRestart() {
+        super.onRestart()
+        Log.d(TAG, "onRestart Called")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause Called")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop Called")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy Called")
+    }
 }
 
 @Composable
 fun GradeClickerApp(grades: List<Grade>) {
-    var points by remember { mutableStateOf(0) }
-    var clicks by remember { mutableStateOf(0) }
+    var points by rememberSaveable { mutableStateOf(0) }
+    var clicks by rememberSaveable { mutableStateOf(0) }
     val currentGrade = determineGradeToShow(grades,points)
     Column(
         modifier = Modifier
